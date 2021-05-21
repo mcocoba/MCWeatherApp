@@ -1,5 +1,12 @@
 import React from 'react';
+import WeatherCard from '../WeatherCard';
 
-const WeatherGrid: React.FC = () => <h1>Grids</h1>;
+const WeatherGrid: React.FC = () => (
+  <>
+    <WeatherCard />
+    <WeatherCard />
+    <WeatherCard />
+  </>
+);
 
 export default WeatherGrid;
