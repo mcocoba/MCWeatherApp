@@ -1,0 +1,14 @@
+.container {
+  margin: 20px;
+  background-image: linear-gradient(
+    85deg,
+    #030303 -20%,
+    #181617 50%,
+    #262324 120%
+  );
+  border: solid #2f2f2f 1px;
+  border-radius: 6px;
+  box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px,
+    rgba(0, 0, 0, 0.22) 0px 15px 12px;
+  padding: 20px;
+}
