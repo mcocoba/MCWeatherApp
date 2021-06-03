@@ -13,7 +13,7 @@ const WeatherGrid: React.FC = () => (
       <div className="stack--secondary">
         <WeatherCard place="Los Angeles" />
         <WeatherCard place="Londres" />
-        <WeatherCard place="Cairo" />
+        <WeatherCard place="Washington" />
       </div>
     </section>
   </>

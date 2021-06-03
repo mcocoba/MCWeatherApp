@@ -47,7 +47,7 @@ export interface OpenWeatherDTO {
   name: string;
   main: WeatherMain;
   sys: WeatherSys;
-  timezone: number;
+  timezone?: number;
   visibility: number;
   weather: WeatherData[];
   wind: WeatherWind;

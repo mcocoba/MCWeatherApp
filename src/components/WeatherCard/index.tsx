@@ -4,7 +4,7 @@ import { AxiosError, AxiosResponse } from 'axios';
 import { DateTime } from 'luxon';
 
 import './Styles.scss';
-// import { ReactComponent as StrongRain } from '../../assets/img/weather/rain.svg';
+
 import { ReactComponent as Wind } from '../../assets/img/weather/wind.svg';
 import { ReactComponent as Humidity } from '../../assets/img/weather/humidity.svg';
 import { ReactComponent as Sunrise } from '../../assets/img/weather/sunrise.svg';
@@ -23,6 +23,7 @@ type CardProps = {
 const WeatherCard: React.FC<CardProps> = ({ place }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [weather, setWeather] = useState<OpenWeatherDTO>();
+  const [localTime, setLocalTime] = useState<string>('00:00');
 
   const fetchWeatherData = useCallback(() => {
     t.get<OpenWeatherDTO>(
@@ -41,6 +42,13 @@ const WeatherCard: React.FC<CardProps> = ({ place }) => {
     fetchWeatherData();
   }, [fetchWeatherData]);
 
+  useEffect(() => {
+    const sysTime = weather?.sys.sunrise as number;
+    const tz = weather?.timezone as number;
+    const time = DateTime.fromMillis((sysTime + tz) * 1000).toFormat('H:m');
+    setLocalTime(time);
+  }, [weather]);
+
   return (
     <>
       {isLoading ? (
@@ -51,20 +59,18 @@ const WeatherCard: React.FC<CardProps> = ({ place }) => {
             <span className="header--location">
               <Button text={weather?.name} />
             </span>
-            <span className="header--time">
-              {`${DateTime.fromSeconds(weather?.dt as number).toFormat(
-                'HH:MM',
-              )}`}
-            </span>
+            <span className="header--time">{`${localTime}`}</span>
           </div>
           <div className="icon">
             <IconSelector icon={weather?.weather[0].icon} />
           </div>
-          <div className="status">{weather?.weather[0].main}</div>
+          <div className="status">{weather?.weather[0].description}</div>
           <div className="detail--container">
             <div className="detail--wind">
               <Wind className="detail--icon" />
-              <span>11 km/h</span>
+              <span>
+                {`${Math.round(weather?.wind.speed as number)} mts/h`}
+              </span>
             </div>
             <div className="detail--humidity">
               <Humidity className="detail--icon" />
