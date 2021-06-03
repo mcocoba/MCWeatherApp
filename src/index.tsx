@@ -1,8 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
-import './assets/css/normalize.css';
-import './assets/css/global.css';
+import './assets/css/normalize.scss';
+import './assets/css/global.scss';
 import reportWebVitals from './reportWebVitals';
 
 ReactDOM.render(

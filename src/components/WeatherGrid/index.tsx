@@ -1,17 +1,20 @@
 import React from 'react';
 import WeatherCard from '../WeatherCard';
 
-import './styles.css';
+import './Styles.scss';
 
 const WeatherGrid: React.FC = () => (
   <>
     <section className="grid--container">
-      <WeatherCard place="hermosillo" />
-      <WeatherCard place="Münster" />
-      <WeatherCard place="cdmx" />
-      <WeatherCard place="londres" />
-      <WeatherCard place="berlin" />
-      <WeatherCard place="cairo" />
+      <div className="stack--main">
+        <WeatherCard place="Hermosillo" />
+        <WeatherCard place="Tijuana" />
+      </div>
+      <div className="stack--secondary">
+        <WeatherCard place="Los Angeles" />
+        <WeatherCard place="Londres" />
+        <WeatherCard place="Cairo" />
+      </div>
     </section>
   </>
 );

@@ -1,0 +1,15 @@
+.grid--container {
+  color: #c9c9c9;
+
+  .stack--main {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .stack--secondary {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+}

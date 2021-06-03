@@ -1,8 +1,0 @@
-.grid--container {
-  display: grid;
-  grid-template-rows: 1fr 1fr;
-  grid-template-columns: repeat(auto-fit, minmax(420px, 1fr));
-  color: white;
-  row-gap: 20px;
-  column-gap: 20px;
-}
