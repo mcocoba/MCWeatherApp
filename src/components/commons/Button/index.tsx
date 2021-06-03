@@ -3,7 +3,7 @@ import React from 'react';
 import './Styles.scss';
 
 type ButtonProps = {
-  text: string;
+  text?: string;
 };
 
 const Button: React.FC<ButtonProps> = ({ text }) => (

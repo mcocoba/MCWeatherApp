@@ -1,14 +1,16 @@
 /* eslint-disable max-len */
 import React, { useEffect, useState, useCallback } from 'react';
+import { AxiosError, AxiosResponse } from 'axios';
+import { DateTime } from 'luxon';
 
-import Button from '../commons/Button';
-
-import { ReactComponent as StrongRain } from '../../assets/img/weather/rain.svg';
+import './Styles.scss';
+// import { ReactComponent as StrongRain } from '../../assets/img/weather/rain.svg';
 import { ReactComponent as Wind } from '../../assets/img/weather/wind.svg';
 import { ReactComponent as Humidity } from '../../assets/img/weather/humidity.svg';
 import { ReactComponent as Sunrise } from '../../assets/img/weather/sunrise.svg';
 
-import './Styles.scss';
+import Button from '../commons/Button';
+import IconSelector from '../commons/IconSelector';
 
 import t from '../../utils/api';
 
@@ -20,18 +22,18 @@ type CardProps = {
 
 const WeatherCard: React.FC<CardProps> = ({ place }) => {
   const [isLoading, setIsLoading] = useState(true);
-  const [weather, setWeather] = useState<OpenWeatherDTO>([]);
+  const [weather, setWeather] = useState<OpenWeatherDTO>();
 
   const fetchWeatherData = useCallback(() => {
-    t.get(`weather?q=${place}&appid=${process.env.REACT_APP_OPEN_WEATHER_KEY}`)
-      .then((res) => {
-        console.log(res.data);
+    t.get<OpenWeatherDTO>(
+      `weather?q=${place}&units=metric&appid=${process.env.REACT_APP_OPEN_WEATHER_KEY}`,
+    )
+      .then((res: AxiosResponse<OpenWeatherDTO>) => {
         setWeather(res.data);
         setIsLoading(false);
       })
-      .catch((error) => {
-        setIsLoading(false);
-        console.log(error);
+      .catch((error: AxiosError) => {
+        // console.log(error);
       });
   }, [place]);
 
@@ -41,33 +43,43 @@ const WeatherCard: React.FC<CardProps> = ({ place }) => {
 
   return (
     <>
-      <section className="container">
-        <div className="header">
-          <span className="header--location">
-            <Button text={weather.name} />
-          </span>
-          <span className="header--time">18:42</span>
-        </div>
-        <div className="icon">
-          <StrongRain className="icon--svg" />
-        </div>
-        <div className="status">Strong Rain</div>
-        <div className="detail--container">
-          <div className="detail--wind">
-            <Wind className="detail--icon" />
-            <span>11 km/h</span>
+      {isLoading ? (
+        <span>Loading...</span>
+      ) : (
+        <section className="container">
+          <div className="header">
+            <span className="header--location">
+              <Button text={weather?.name} />
+            </span>
+            <span className="header--time">
+              {`${DateTime.fromSeconds(weather?.dt as number).toFormat(
+                'HH:MM',
+              )}`}
+            </span>
           </div>
-          <div className="detail--humidity">
-            <Humidity className="detail--icon" />
-            <span>85%</span>
+          <div className="icon">
+            <IconSelector icon={weather?.weather[0].icon} />
           </div>
-          <div className="detail--sunrise">
-            <Sunrise className="detail--icon icon" />
-            <span>6:00am</span>
+          <div className="status">{weather?.weather[0].main}</div>
+          <div className="detail--container">
+            <div className="detail--wind">
+              <Wind className="detail--icon" />
+              <span>11 km/h</span>
+            </div>
+            <div className="detail--humidity">
+              <Humidity className="detail--icon" />
+              <span>{`${weather?.main.humidity} %`}</span>
+            </div>
+            <div className="detail--sunrise">
+              <Sunrise className="detail--icon icon" />
+              <span>6:00 am</span>
+            </div>
+            <div className="detail--degrees">
+              {`${Math.round(weather?.main.temp as number)}°`}
+            </div>
           </div>
-          <div className="detail--degrees">8°</div>
-        </div>
-      </section>
+        </section>
+      )}
     </>
   );
 };
