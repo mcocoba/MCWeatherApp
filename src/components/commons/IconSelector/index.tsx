@@ -20,7 +20,7 @@ import { ReactComponent as HazeNight } from '../../../assets/img/weather/haze-ni
 import { ReactComponent as Haze } from '../../../assets/img/weather/haze.svg';
 
 type ButtonProps = {
-  icon?: string;
+  icon?: string | undefined;
 };
 
 const IconSelector: React.FC<ButtonProps> = ({ icon }) => {

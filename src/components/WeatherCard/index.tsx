@@ -24,6 +24,7 @@ const WeatherCard: React.FC<CardProps> = ({ place }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [weather, setWeather] = useState<OpenWeatherDTO>();
   const [localTime, setLocalTime] = useState<string>('00:00');
+  const [sunrise, setSunrise] = useState<string>('00:00');
 
   const fetchWeatherData = useCallback(() => {
     t.get<OpenWeatherDTO>(
@@ -43,10 +44,14 @@ const WeatherCard: React.FC<CardProps> = ({ place }) => {
   }, [fetchWeatherData]);
 
   useEffect(() => {
-    const sysTime = weather?.sys.sunrise as number;
-    const tz = weather?.timezone as number;
-    const time = DateTime.fromMillis((sysTime + tz) * 1000).toFormat('H:m');
-    setLocalTime(time);
+    const sysTime = weather?.dt as number;
+    const sunTime = weather?.sys.sunrise as number;
+    if (sysTime) {
+      const lastMeasureTime = DateTime.fromSeconds(sysTime).toFormat('HH:mm');
+      const sunriseTime = DateTime.fromSeconds(sunTime).toFormat('HH:mm');
+      setLocalTime(lastMeasureTime);
+      setSunrise(sunriseTime);
+    }
   }, [weather]);
 
   return (
@@ -78,7 +83,7 @@ const WeatherCard: React.FC<CardProps> = ({ place }) => {
             </div>
             <div className="detail--sunrise">
               <Sunrise className="detail--icon icon" />
-              <span>6:00 am</span>
+              <span>{`${sunrise}`}</span>
             </div>
             <div className="detail--degrees">
               {`${Math.round(weather?.main.temp as number)}°`}
