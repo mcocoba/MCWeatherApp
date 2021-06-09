@@ -2,6 +2,7 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import { AxiosError, AxiosResponse } from 'axios';
 import { DateTime } from 'luxon';
+import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
 
 import './Styles.scss';
 
@@ -40,7 +41,9 @@ const WeatherCard: React.FC<CardProps> = ({ place }) => {
   }, [place]);
 
   useEffect(() => {
-    fetchWeatherData();
+    setTimeout(() => {
+      fetchWeatherData();
+    }, 5000);
   }, [fetchWeatherData]);
 
   useEffect(() => {
@@ -56,41 +59,76 @@ const WeatherCard: React.FC<CardProps> = ({ place }) => {
 
   return (
     <>
-      {isLoading ? (
-        <span>Loading...</span>
-      ) : (
+      <SkeletonTheme color="#202020" highlightColor="#444">
         <section className="container">
           <div className="header">
             <span className="header--location">
-              <Button text={weather?.name} />
+              {isLoading ? (
+                <Skeleton duration={2} height={30} width={130} />
+              ) : (
+                <Button text={weather?.name} />
+              )}
             </span>
-            <span className="header--time">{`${localTime}`}</span>
+            <span className="header--time">
+              {isLoading ? (
+                <Skeleton duration={2} height={30} width={65} />
+              ) : (
+                `${localTime}`
+              )}
+            </span>
           </div>
           <div className="icon">
-            <IconSelector icon={weather?.weather[0].icon} />
+            {isLoading ? (
+              <Skeleton duration={2} circle height={140} width={140} />
+            ) : (
+              <IconSelector icon={weather?.weather[0].icon} />
+            )}
           </div>
-          <div className="status">{weather?.weather[0].description}</div>
+          <div className="status">
+            {isLoading ? (
+              <Skeleton duration={2} height={30} width={100} />
+            ) : (
+              weather?.weather[0].description
+            )}
+          </div>
           <div className="detail--container">
-            <div className="detail--wind">
-              <Wind className="detail--icon" />
-              <span>
-                {`${Math.round(weather?.wind.speed as number)} mts/h`}
-              </span>
-            </div>
-            <div className="detail--humidity">
-              <Humidity className="detail--icon" />
-              <span>{`${weather?.main.humidity} %`}</span>
-            </div>
-            <div className="detail--sunrise">
-              <Sunrise className="detail--icon icon" />
-              <span>{`${sunrise}`}</span>
-            </div>
+            {isLoading ? (
+              <Skeleton duration={2} height={30} width={100} />
+            ) : (
+              <div className="detail--wind">
+                <Wind className="detail--icon" />
+                <span>
+                  {`${Math.round(weather?.wind.speed as number)} mts/h`}
+                </span>
+              </div>
+            )}
+            {isLoading ? (
+              <Skeleton duration={2} height={30} width={100} />
+            ) : (
+              <div className="detail--humidity">
+                <Humidity className="detail--icon" />
+                <span>{`${weather?.main.humidity} %`}</span>
+              </div>
+            )}
+            {isLoading ? (
+              <Skeleton duration={2} height={30} width={100} />
+            ) : (
+              <div className="detail--sunrise">
+                <Sunrise className="detail--icon icon" />
+                <span>{`${sunrise}`}</span>
+              </div>
+            )}
+
             <div className="detail--degrees">
-              {`${Math.round(weather?.main.temp as number)}°`}
+              {isLoading ? (
+                <Skeleton duration={2} height={140} width={140} />
+              ) : (
+                `${Math.round(weather?.main.temp as number)}°`
+              )}
             </div>
           </div>
         </section>
-      )}
+      </SkeletonTheme>
     </>
   );
 };
