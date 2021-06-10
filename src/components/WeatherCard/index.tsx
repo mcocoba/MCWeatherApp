@@ -1,6 +1,6 @@
 /* eslint-disable max-len */
 import React, { useEffect, useState, useCallback } from 'react';
-import { AxiosError, AxiosResponse } from 'axios';
+import { AxiosResponse } from 'axios';
 import { DateTime } from 'luxon';
 
 import './Styles.scss';
@@ -30,14 +30,10 @@ const WeatherCard: React.FC<CardProps> = ({ place }) => {
   const fetchWeatherData = useCallback(() => {
     t.get<OpenWeatherDTO>(
       `weather?q=${place}&units=metric&appid=${process.env.REACT_APP_OPEN_WEATHER_KEY}`,
-    )
-      .then((res: AxiosResponse<OpenWeatherDTO>) => {
-        setWeather(res.data);
-        setIsLoading(false);
-      })
-      .catch((error: AxiosError) => {
-        // console.log(error);
-      });
+    ).then((res: AxiosResponse<OpenWeatherDTO>) => {
+      setWeather(res.data);
+      setIsLoading(false);
+    });
   }, [place]);
 
   useEffect(() => {

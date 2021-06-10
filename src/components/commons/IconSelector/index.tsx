@@ -26,6 +26,7 @@ type ButtonProps = {
 };
 
 const IconSelector: React.FC<ButtonProps> = ({ icon }) => {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const handleIcon: any = () => {
     switch (icon) {
       case '01d':
