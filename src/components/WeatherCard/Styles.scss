@@ -80,5 +80,10 @@
     align-self: center;
     justify-self: end;
     font-size: 5rem;
+
+    &__skeleton {
+      @extend .detail--degrees;
+      margin-top: -5px;
+    }
   }
 }

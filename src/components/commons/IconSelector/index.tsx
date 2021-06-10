@@ -4,7 +4,7 @@ import React from 'react';
 import './Styles.scss';
 
 import { ReactComponent as NA } from '../../../assets/img/weather/not-available.svg';
-import { ReactComponent as StrongRain } from '../../../assets/img/weather/rain.svg';
+import { ReactComponent as Rain } from '../../../assets/img/weather/rain.svg';
 import { ReactComponent as Cloudy } from '../../../assets/img/weather/cloudy.svg';
 import { ReactComponent as ClearDay } from '../../../assets/img/weather/clear-day.svg';
 import { ReactComponent as ClearNight } from '../../../assets/img/weather/clear-night.svg';
@@ -15,8 +15,10 @@ import { ReactComponent as OvercastNight } from '../../../assets/img/weather/ove
 
 import { ReactComponent as LightRainDay } from '../../../assets/img/weather/partly-cloudy-day-drizzle.svg';
 import { ReactComponent as LightRainNight } from '../../../assets/img/weather/partly-cloudy-night-drizzle.svg';
-import { ReactComponent as HazeDay } from '../../../assets/img/weather/haze-day.svg';
-import { ReactComponent as HazeNight } from '../../../assets/img/weather/haze-night.svg';
+
+import { ReactComponent as ThunderstormsDay } from '../../../assets/img/weather/thunderstorms-day.svg';
+import { ReactComponent as ThunderstormsNight } from '../../../assets/img/weather/thunderstorms-night.svg';
+
 import { ReactComponent as Haze } from '../../../assets/img/weather/haze.svg';
 
 type ButtonProps = {
@@ -50,11 +52,26 @@ const IconSelector: React.FC<ButtonProps> = ({ icon }) => {
       case '04n':
         return <OvercastNight className="detail--icon" />;
         break;
-      case '10d':
+      case '09d':
         return <LightRainDay className="detail--icon" />;
         break;
-      case '10n':
+      case '09n':
         return <LightRainNight className="detail--icon" />;
+        break;
+      case '10d':
+        return <Rain className="detail--icon" />;
+        break;
+      case '10n':
+        return <Rain className="detail--icon" />;
+        break;
+      case '11d':
+        return <ThunderstormsDay className="detail--icon" />;
+        break;
+      case '11n':
+        return <ThunderstormsNight className="detail--icon" />;
+        break;
+      case '12n':
+        return <Rain className="detail--icon" />;
         break;
       case '50d':
         return <Haze className="detail--icon" />;
