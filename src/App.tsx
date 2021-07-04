@@ -1,14 +1,13 @@
-import React from 'react';
-import WeatherGrid from './components/WeatherGrid';
+import React, { lazy, Suspense } from 'react';
+import WeatherSkeletonCard from './components/WeatherCard/WeatherSkeletonCard';
 
-// StyledComponent
-import WeatherApp from './styles.js';
+const WeatherGrid = lazy(() => import('./components/WeatherGrid'));
 
 function App(): React.ReactElement {
   return (
-    <WeatherApp>
+    <Suspense fallback={<WeatherSkeletonCard />}>
       <WeatherGrid />
-    </WeatherApp>
+    </Suspense>
   );
 }
 

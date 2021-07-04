@@ -13,4 +13,4 @@
   - Icons: https://basmilius.github.io/weather-icons/ by Bas Milius
 
 - Skeleton - Done
-- Fetch data every 10 min
+- Fetch data every 10 min - Done
