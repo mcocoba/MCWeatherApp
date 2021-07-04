@@ -1,0 +1,16 @@
+.footer {
+  display: flex;
+  margin: 2rem 3rem;
+  justify-content: center;
+  color: #c9c9c9;
+
+  a {
+    padding: 0 0.355rem;
+    color: white;
+    text-decoration: none;
+
+    :visited {
+      color: #c9c9c9;
+    }
+  }
+}
