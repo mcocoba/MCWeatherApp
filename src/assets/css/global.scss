@@ -1,10 +1,9 @@
 html {
-  background-color: #1a1a1a;
+  background: linear-gradient(90deg, #1a1a1a -20%, #151515 120%);
+  background-repeat: no-repeat;
 }
 
 body {
-  background: linear-gradient(90deg, #1a1a1a -20%, #151515 120%);
-  background-repeat: no-repeat;
   font-family: 'PT Sans', sans-serif;
   margin: 0 auto;
   font-size: 16px;
